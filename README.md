@@ -32,7 +32,7 @@ Project went through three main phases:
 ![Dashboard](./readmeAssets/Dashboard.png "dashboard")
 
 ### Deals List
-![Deals List](./readmeAssets/DealDetails.png "deals list")
+![Deals List](./readmeAssets/DealsList.png "deals list")
 
 ### Deal Details
-()
+![Deal Details](./readmeAssets/DealDetails.png "deal details")
