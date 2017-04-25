@@ -1,12 +1,14 @@
 # acquisitiontracker
 Track buy-side m&amp;a deals
 
-## Installation ##
+## Installation (tested on Mac OS 10.12.4) ##
 * GIT-clone repo or download and extract to directory of your choice
 * Project uses NPM package manager so once in root project directory, just `npm install` to resolve dependencies. _Note:_ be sure to include `node_module/*` directory in your `.gitignore` to ensure you're not unnecessarily uploading all dependencies to GIT. 
+* Install ES Lint, if not installed already. The eslintrc.json and aribnb configs depend on this linter.
 
 ## Testing / Local Startup ##
-* Use test script for running project locally with hot reloading. To run test script, `npm start-test` from root project directory (this will start webpack and force a recompile each time you make a change).
+* To run locally, run `npm start` from root project directory. If this does not open a new Chrome tab for you, navigate to `http://localhost:3000/`.
+* TO-DO: Webpack integration and start script migration.
 
 ## Background ##
 Project went through three main phases:
