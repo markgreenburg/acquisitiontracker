@@ -27,6 +27,13 @@ Project went through three main phases:
         * Basic CRUD functionality for deals is a must-have
         * Framework must be JS and reasonably modern
         * No backend or data persistence - initial state should be hardcoded (e.g., provided in a file and populated into the app on reload).
+3. Build
+    * Tech:
+        * React
+        * Redux for state management
+        * Jasmine testing framework
+        * ES-Lint with AirBnB styleguide presets
+        * Maybe Webpack. Maybe...
 
 ## Design Mocks
 
