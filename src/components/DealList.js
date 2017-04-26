@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Griddle, { RowDefinition, ColumnDefinition, plugins } from 'griddle-react';
+import NoData from '../griddles/NoData';
 
 // Render data grid
 const DealList = (props) => {
@@ -23,6 +24,7 @@ const DealList = (props) => {
       useGrouping: true,
     })
       .format(deal.employees);
+    // all together now...
     const summarizedDeal = {
       company: deal.company,
       sic_code: deal.SIC,
@@ -35,15 +37,51 @@ const DealList = (props) => {
     };
     return summarizedDeal;
   });
-  const defaultSort = [
-    { id: 'company', sortAscending: true }
+
+  // Customize the Griddle
+  const styleConfig = {
+    classNames: {
+      Table: 'table table-striped table-bordered table-hover',
+      SettingsToggle: 'btn btn-default settings-toggle',
+      Filter: 'form-control input-filter',
+    },
+  };
+
+  // Customize layout order of components. Leave out settings panel, pagination
+  // Note: to re-enable settings, pass in SettingsWrapper prop and render
+  // Pagination requires Pagination component as prop
+  const newLayout = ({ Table, Filter }) => (
+    <div>
+      <Filter />
+      <Table />
+    </div>
+  );
+
+  // Define default sort for data grid
+  const companyAsc = [
+    { id: 'company', sortAscending: true },
   ];
+
+  // Render the data grid
+  // TO-DO: create customized Griddle component with presets, drop in here
+  // WARNING: records displayed on page is hard-coded to 100. If records in
+  // collection exceed this amount, they won't show as the Pagination component
+  // has intentionally been left off the Layout component (see: newLayout)
   return (
     <div className="container">
       <Griddle
+        components={{
+          Layout: newLayout,
+        }}
+        pageProperties={{
+          currentPage: 1,
+          pageSize: 100,
+        }}
+        styleConfig={styleConfig}
         data={dealSummary}
         plugins={[plugins.LocalPlugin]}
-        sortProperties={defaultSort}
+        sortProperties={companyAsc}
+        customNoDataComponent={NoData}
       >
         <RowDefinition>
           <ColumnDefinition title="Company" id="company" width="10%" />
@@ -52,7 +90,7 @@ const DealList = (props) => {
           <ColumnDefinition title="Next Task" id="next_task" width="10%" />
           <ColumnDefinition title="Expires In" id="expires" width="10%" />
           <ColumnDefinition title="EBITDA" id="ebitda" width="10%" />
-          <ColumnDefinition title="Avg. Growth" id="next_task" width="10%" />
+          <ColumnDefinition title="Avg. Growth" id="growth" width="10%" />
           <ColumnDefinition title="Employees" id="employees" width="10%" />
         </RowDefinition>
       </Griddle>
@@ -60,6 +98,7 @@ const DealList = (props) => {
   );
 };
 
+// Check for required props
 DealList.propTypes = {
   deals: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

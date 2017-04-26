@@ -1,0 +1,22 @@
+// Only way to style some of Griddle's containers
+
+// Settings toggle button
+#root > div > div > div > div:nth-child(1) {
+    // text-align: right;
+    margin-bottom: 10px;
+}
+
+// Settings menu change pagination div
+#root > div > div > div > div:nth-child(1) > div > div:nth-child(1) > div {
+    display: none;
+}
+
+.griddle-settings {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+
+.input-filter {
+    margin-bottom: 10px;
+}

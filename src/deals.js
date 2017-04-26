@@ -100,13 +100,13 @@ const deals = [
   {
     id: 2,
     company: 'Ferrari NA',
-    SIC: '1321 - Natural Gas Liquids',
-    stage: 'II: Initial Due Diligence',
-    nextTask: 'Send IOI',
-    Expires: 45, // TO-DO: this should be represented as a Date() diff
-    EBITDA: 6500000,
-    earningsGrowth: 0.21,
-    employees: 54,
+    SIC: '5012- Automobiles & Vehicles',
+    stage: 'I: Initial Interest',
+    nextTask: 'First Contact',
+    Expires: 90, // TO-DO: this should be represented as a Date() diff
+    EBITDA: 85000000,
+    earningsGrowth: 0.16,
+    employees: 150,
     contacts: [
       {
         name: 'Rudolph Offermans',
@@ -190,13 +190,13 @@ const deals = [
   {
     id: 3,
     company: 'CSX',
-    SIC: '1321 - Natural Gas Liquids',
-    stage: 'II: Initial Due Diligence',
-    nextTask: 'Send IOI',
-    Expires: 45, // TO-DO: this should be represented as a Date() diff
-    EBITDA: 6500000,
-    earningsGrowth: 0.21,
-    employees: 54,
+    SIC: '4011 - Railroads',
+    stage: 'I: Initial Interest',
+    nextTask: 'Review CIM',
+    Expires: 18, // TO-DO: this should be represented as a Date() diff
+    EBITDA: 4690000000,
+    earningsGrowth: -0.01,
+    employees: 36000,
     contacts: [
       {
         name: 'Rudolph Offermans',
@@ -280,13 +280,13 @@ const deals = [
   {
     id: 4,
     company: 'LafargeHolcim',
-    SIC: '1321 - Natural Gas Liquids',
-    stage: 'II: Initial Due Diligence',
-    nextTask: 'Send IOI',
-    Expires: 45, // TO-DO: this should be represented as a Date() diff
-    EBITDA: 6500000,
-    earningsGrowth: 0.21,
-    employees: 54,
+    SIC: '3272 - Concrete Products',
+    stage: 'III: Bidding',
+    nextTask: 'LOI Pending',
+    Expires: 74, // TO-DO: this should be represented as a Date() diff
+    EBITDA: 5264000000,
+    earningsGrowth: 0.03,
+    employees: 90000,
     contacts: [
       {
         name: 'Rudolph Offermans',
@@ -371,12 +371,12 @@ const deals = [
     id: 5,
     company: 'Undisclosed',
     SIC: '1321 - Natural Gas Liquids',
-    stage: 'II: Initial Due Diligence',
-    nextTask: 'Send IOI',
-    Expires: 45, // TO-DO: this should be represented as a Date() diff
-    EBITDA: 6500000,
-    earningsGrowth: 0.21,
-    employees: 54,
+    stage: '0: Idea',
+    nextTask: 'Sign CA',
+    Expires: 12, // TO-DO: this should be represented as a Date() diff
+    EBITDA: 9300000,
+    earningsGrowth: 0.31,
+    employees: 112,
     contacts: [
       {
         name: 'Rudolph Offermans',
@@ -460,13 +460,13 @@ const deals = [
   {
     id: 6,
     company: 'Sensient Technologies',
-    SIC: '1321 - Natural Gas Liquids',
-    stage: 'II: Initial Due Diligence',
-    nextTask: 'Send IOI',
-    Expires: 45, // TO-DO: this should be represented as a Date() diff
-    EBITDA: 6500000,
-    earningsGrowth: 0.21,
-    employees: 54,
+    SIC: '2087 - Flavoring Extracts',
+    stage: 'IV: Finalization',
+    nextTask: 'Lost',
+    Expires: 0, // TO-DO: this should be represented as a Date() diff
+    EBITDA: 233000000,
+    earningsGrowth: 0.12,
+    employees: 1200,
     contacts: [
       {
         name: 'Rudolph Offermans',

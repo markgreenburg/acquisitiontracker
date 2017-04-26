@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Tabs from './Tabs';
 import Footer from './Footer';
+import '../../public/css/app.css';
 
 // Use stateless component for App since Redux will handle state
 const App = () => {
