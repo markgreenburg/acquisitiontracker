@@ -15,6 +15,10 @@ const stateInit = {
 };
 
 // TO-DO: Remove middleware after testing
-const store = createStore(masterReducer, stateInit, applyMiddleware(logActions));
+const store = createStore(
+  masterReducer,
+  stateInit,
+  applyMiddleware(logActions),
+);
 
 export default store;
