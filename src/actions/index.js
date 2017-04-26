@@ -26,8 +26,17 @@ const deleteDeal = (dealObject) => {
   return deleteDealAction;
 };
 
+const changeTab = (tabId) => {
+  const changeTabAction = {
+    type: 'CHANGE_TAB',
+    payload: tabId,
+  };
+  return changeTabAction;
+};
+
 module.exports = {
   addDeal,
   editDeal,
   deleteDeal,
+  changeTab,
 };

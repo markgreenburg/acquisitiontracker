@@ -2,17 +2,38 @@
 // import { combineReducers } from 'redux';
 
 const masterReducer = (state, action) => {
-  const deal = action.payload;
-  let deals = [];
   switch (action.type) {
-    case 'ADD_DEAL':
-      return [...state, action.payload];
-    case 'EDIT_DEAL':
-      deals = state.map(current => (current.id === deal.id ? deal : current));
-      return deals;
-    case 'DELETE_DEAL':
-      deals = state.filter(current => (current.id !== deal.id));
-      return deals;
+    case 'ADD_DEAL': {
+      const newState = {
+        ...state,
+        deals: [...state.deals, action.payload],
+      };
+      return newState;
+    }
+    case 'EDIT_DEAL': {
+      const newState = {
+        ...state,
+        deals: state.deals.map(current => (
+          current.id === action.payload.id
+            ? action.payload
+            : current)),
+      };
+      return newState;
+    }
+    case 'DELETE_DEAL': {
+      const newState = {
+        ...state,
+        deals: state.filter(current => (current.id !== action.payload.id)),
+      };
+      return newState;
+    }
+    case 'CHANGE_TAB': {
+      const newState = {
+        ...state,
+        activeTab: action.payload,
+      };
+      return newState;
+    }
     default:
       return state;
   }
