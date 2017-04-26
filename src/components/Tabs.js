@@ -1,31 +1,41 @@
 /**
  * This tab component recognizes and renders the current active tab
+ * It has full access to the Redux store
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addDeal, editDeal, deleteDeal, changeTab } from '../actions/index';
+import Dashboard from './Dashboard';
+import DealList from './DealList';
+import DealDetails from './DealDetails';
+import AddDeal from './AddDeal';
 
-// 1. Get active tab from store
-// 2. Conditionally render the corresponding subcomponent
-// 3. Set active tab style to current active tab
-
+// Define tab handler as stateless component
+// The different tab names are defined by IDs in Header component
 const Tabs = (props) => {
-  const container = (
-    <div className="container">
-      <p>Tabs Go Here</p>
-    </div>
-  );
-  return container;
+  switch (props.activeTab) {
+    case 'dashboardTab':
+      return (<Dashboard deals={props.deals} />);
+    case 'dealListTab':
+      return (<DealList deals={props.deals} />);
+    case 'dealTab':
+      return (<DealDetails />);
+    case 'addDealTab':
+      return (<AddDeal />);
+    default:
+      return (<Dashboard />);
+  }
 };
 
-// Add proptype checks for the component to prevent issues down the road
+// Add proptype checks to prevent inadvertently breaking stuff
 Tabs.propTypes = {
   activeTab: PropTypes.string.isRequired,
-  deals: PropTypes.arrayOf(PropTypes.object),
+  deals: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
+// Give the component access to Redux actions, store via props
 const mapStateToProps = (state) => {
   const requiredState = {
     activeTab: state.activeTab,
@@ -44,4 +54,5 @@ const mapDispatchToProps = (dispatch) => {
   return validActions;
 };
 
+// Connect module to Redux state, store and export
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Tabs);

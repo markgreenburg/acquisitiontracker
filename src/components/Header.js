@@ -9,13 +9,11 @@ class Header extends React.Component {
     this.handleTabClick = this.handleTabClick.bind(this);
   }
 
+  // Gets ID of tab clicked and dispatches CHANGE_TAB action to store
   handleTabClick(event) {
-    // 1. get the data-id of the clicked tab
     event.preventDefault();
     const tabId = event.target.id;
-    // 2. dispatch active tab info to changeTab action
     this.props.changeTab(tabId);
-    // 3. Change the 'active' tab styling
   }
 
   render() {
@@ -27,19 +25,22 @@ class Header extends React.Component {
       dealTab: 'Deal Details',
       addDealTab: 'Add Deal',
     };
-    // Make a 'button' for each tab. Set active styling in sync with state.
+
+    // Make a 'button' for each tab to keep things DRY.
     const tabsList = tabIds.map((current) => {
       const anchor = (
         <a href={`# ${current}`} id={current} onClick={this.handleTabClick}>
           {tabStrings[current]}
         </a>
       );
+      // Set active styling in sync with state.
       if (current === this.props.activeTab) {
-        return (<li className="active">{anchor}</li>);
+        return (<li key={current} className="active">{anchor}</li>);
       }
-      return (<li>{anchor}</li>);
+      return (<li key={current}>{anchor}</li>);
     });
 
+    // Define the main header's DOM elements
     const headerDiv = (
       <nav className="navbar navbar-default navbar-static-top">
         <div className="container">
@@ -57,7 +58,7 @@ class Header extends React.Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <a className="navbar-brand" href="#root">Some &amp; Company</a>
+            <a className="navbar-brand">Some &amp; Company</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
@@ -65,19 +66,19 @@ class Header extends React.Component {
             </ul>
           </div>
         </div>
-        <p>Active Tab: {this.props.activeTab}</p>
       </nav>
     );
     return headerDiv;
   }
 }
 
-// Add proptype checks for component
+// Add proptype checks for component to prevent inadvertent breaking of stuff
 Header.propTypes = {
   activeTab: PropTypes.string.isRequired,
   changeTab: PropTypes.func.isRequired,
 };
 
+// Pass Redux state and actions to component's props
 const mapStateToProps = (state) => {
   const requiredState = {
     activeTab: state.activeTab,
@@ -92,4 +93,6 @@ const mapDispatchToProps = (dispatch) => {
   return validActions;
 };
 
+// Connect handles the actual hooking up of the component to the store.
+// It's just a layer on top of Redux's subscribe() method, I think.
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Header);
