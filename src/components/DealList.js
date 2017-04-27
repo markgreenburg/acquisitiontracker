@@ -98,6 +98,7 @@ const DealList = (props) => {
     props.deleteDeal(payload);
   };
 
+  // TO-DO: Add expandable, editable contacts list
   return (
     <div className="container">
       <BootstrapTable
