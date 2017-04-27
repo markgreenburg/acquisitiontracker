@@ -1,5 +1,5 @@
 /**
- * This model defines the initial state of the acquisition tracker.
+ * This module defines the initial state of the acquisition tracker.
  * This is mostly dummy data, and in a real application would be
  * replaced by whatever data is actually available on the application's
  * backend, e.g. through a fetch() to the server.
