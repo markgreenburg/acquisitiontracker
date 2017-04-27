@@ -19,7 +19,14 @@ const Tabs = (props) => {
     case 'dashboardTab':
       return (<Dashboard deals={props.deals} />);
     case 'dealListTab':
-      return (<DealList deals={props.deals} />);
+      return (
+        <DealList
+          deals={props.deals}
+          addDeal={props.addDeal}
+          editDeal={props.editDeal}
+          deleteDeal={props.deleteDeal}
+        />
+      );
     case 'dealTab':
       return (<DealDetails />);
     case 'addDealTab':
@@ -33,6 +40,9 @@ const Tabs = (props) => {
 Tabs.propTypes = {
   activeTab: PropTypes.string.isRequired,
   deals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addDeal: PropTypes.func.isRequired,
+  editDeal: PropTypes.func.isRequired,
+  deleteDeal: PropTypes.func.isRequired,
 };
 
 // Give the component access to Redux actions, store via props

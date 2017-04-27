@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Griddle, { RowDefinition, ColumnDefinition, plugins } from 'griddle-react';
-import NoData from '../griddles/NoData';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 // Render data grid
 const DealList = (props) => {
@@ -14,7 +14,7 @@ const DealList = (props) => {
       maximumFractionDigits: 0,
     })
       .format(deal.EBITDA);
-    const formattedExpiration = `${deal.Expires} Days`;
+    const formattedExpiration = `${deal.expires} Days`;
     const formattedGrowth = new Intl.NumberFormat('en-US', {
       style: 'percent',
     })
@@ -26,74 +26,80 @@ const DealList = (props) => {
       .format(deal.employees);
     // all together now...
     const summarizedDeal = {
+      id: deal.id,
       company: deal.company,
-      sic_code: deal.SIC,
+      SIC: deal.SIC,
       stage: deal.stage,
-      next_task: deal.nextTask,
+      nextTask: deal.nextTask,
       expires: formattedExpiration,
-      ebitda: formattedEbitda,
-      growth: formattedGrowth,
+      EBITDA: formattedEbitda,
+      earningsGrowth: formattedGrowth,
       employees: formattedEmployees,
     };
     return summarizedDeal;
   });
 
-  // Customize the Griddle
-  const styleConfig = {
-    classNames: {
-      Table: 'table table-striped table-bordered table-hover',
-      SettingsToggle: 'btn btn-default settings-toggle',
-      Filter: 'form-control input-filter',
-    },
+  // Custom sort function for formatted data in table
+  // Replaces commas and $ with empty strings and parses as Num
+  const sortEbitda = (a, b, order) => {
+    const numA = parseInt(a.EBITDA.replace(/,|\$/g, ''), 10);
+    const numB = parseInt(b.EBITDA.replace(/,|\$/g, ''), 10);
+    return (order === 'desc' ? numB - numA : numA - numB);
   };
 
-  // Customize layout order of components. Leave out settings panel, pagination
-  // Note: to re-enable settings, pass in SettingsWrapper prop and render
-  // Pagination requires Pagination component as prop
-  const newLayout = ({ Table, Filter }) => (
-    <div>
-      <Filter />
-      <Table />
-    </div>
-  );
+  const sortEmployees = (a, b, order) => {
+    const numA = parseInt(a.employees.replace(/,|\$/g, ''), 10);
+    const numB = parseInt(b.employees.replace(/,|\$/g, ''), 10);
+    return (order === 'desc' ? numB - numA : numA - numB);
+  };
 
-  // Define default sort for data grid
-  const companyAsc = [
-    { id: 'company', sortAscending: true },
-  ];
+  // Custom afterInsert hook to dispatch the ADD_DEAL action
+  const onAfterInsertRow = row => props.addDeal(row);
 
-  // Render the data grid
-  // TO-DO: create customized Griddle component with presets, drop in here
-  // WARNING: records displayed on page is hard-coded to 100. If records in
-  // collection exceed this amount, they won't show as the Pagination component
-  // has intentionally been left off the Layout component (see: newLayout)
   return (
     <div className="container">
-      <Griddle
-        components={{
-          Layout: newLayout,
-        }}
-        pageProperties={{
-          currentPage: 1,
-          pageSize: 100,
-        }}
-        styleConfig={styleConfig}
+      <BootstrapTable
         data={dealSummary}
-        plugins={[plugins.LocalPlugin]}
-        sortProperties={companyAsc}
-        customNoDataComponent={NoData}
+        insertRow
+        search
+        height="75%"
+        scrollTop={'Top'}
+        striped
+        hover
+        options={{
+          noDataText: 'No Deals Found',
+          defaultSortName: 'company',
+          defaultSortOrder: 'asc',
+          afterInsertRow: onAfterInsertRow,
+        }}
       >
-        <RowDefinition>
-          <ColumnDefinition title="Company" id="company" width="10%" />
-          <ColumnDefinition title="SIC Code" id="sic_code" width="10%" />
-          <ColumnDefinition title="Stage" id="stage" width="10%" />
-          <ColumnDefinition title="Next Task" id="next_task" width="10%" />
-          <ColumnDefinition title="Expires In" id="expires" width="10%" />
-          <ColumnDefinition title="EBITDA" id="ebitda" width="10%" />
-          <ColumnDefinition title="Avg. Growth" id="growth" width="10%" />
-          <ColumnDefinition title="Employees" id="employees" width="10%" />
-        </RowDefinition>
-      </Griddle>
+        <TableHeaderColumn isKey dataField="id" dataSort>Deal ID</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="company"
+          dataSort
+        >Company</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="SIC"
+          dataSort
+        >SIC Code</TableHeaderColumn>
+        <TableHeaderColumn dataField="stage" dataSort>Stage</TableHeaderColumn>
+        <TableHeaderColumn dataField="nextTask" dataSort>Next Task</TableHeaderColumn>
+        <TableHeaderColumn dataField="expires" dataSort>Expires In</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="EBITDA"
+          dataSort
+          sortFunc={sortEbitda}
+        >EBITDA</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="earningsGrowth"
+          dataSort
+        >Earnings Growth</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="employees"
+          dataSort
+          sortFunc={sortEmployees}
+        >Employees</TableHeaderColumn>
+      </BootstrapTable>
     </div>
   );
 };
@@ -101,6 +107,7 @@ const DealList = (props) => {
 // Check for required props
 DealList.propTypes = {
   deals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addDeal: PropTypes.func.isRequired,
 };
 
 module.exports = DealList;

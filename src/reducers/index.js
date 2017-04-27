@@ -4,9 +4,11 @@
 const masterReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_DEAL': {
+      const newDealId = { id: state.deals.length };
+      const newDeal = Object.assign(action.payload, newDealId);
       const newState = {
         ...state,
-        deals: [...state.deals, action.payload],
+        deals: [...state.deals, newDeal],
       };
       return newState;
     }
