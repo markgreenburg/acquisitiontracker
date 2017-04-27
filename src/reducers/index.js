@@ -13,19 +13,22 @@ const masterReducer = (state, action) => {
       return newState;
     }
     case 'EDIT_DEAL': {
+      const updateSnippet = {};
+      updateSnippet[action.payload.updateKey] = action.payload.updateValue;
       const newState = {
         ...state,
         deals: state.deals.map(current => (
-          current.id === action.payload.id
-            ? action.payload
-            : current)),
+          current.id !== action.payload.id
+            ? current
+            : Object.assign(current, updateSnippet)
+        )),
       };
       return newState;
     }
     case 'DELETE_DEAL': {
       const newState = {
         ...state,
-        deals: state.filter(current => (current.id !== action.payload.id)),
+        deals: state.deals.filter(current => (current.id !== action.payload.id)),
       };
       return newState;
     }

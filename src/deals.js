@@ -8,7 +8,7 @@
 // The 'shape' of the store is defined as an array of Deal objects
 const deals = [
   {
-    id: 1,
+    id: 0,
     company: 'ABC Supply',
     SIC: '1321 - Natural Gas Liquids',
     stage: 'II: Initial Due Diligence',
@@ -98,7 +98,7 @@ const deals = [
     ],
   },
   {
-    id: 2,
+    id: 1,
     company: 'Ferrari NA',
     SIC: '5012- Automobiles & Vehicles',
     stage: 'I: Initial Interest',
@@ -188,7 +188,7 @@ const deals = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     company: 'CSX',
     SIC: '4011 - Railroads',
     stage: 'I: Initial Interest',
@@ -278,7 +278,7 @@ const deals = [
     ],
   },
   {
-    id: 4,
+    id: 3,
     company: 'LafargeHolcim',
     SIC: '3272 - Concrete Products',
     stage: 'III: Bidding',
@@ -368,7 +368,7 @@ const deals = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     company: 'Undisclosed',
     SIC: '1321 - Natural Gas Liquids',
     stage: '0: Idea',
@@ -458,7 +458,7 @@ const deals = [
     ],
   },
   {
-    id: 6,
+    id: 5,
     company: 'Sensient Technologies',
     SIC: '2087 - Flavoring Extracts',
     stage: 'IV: Finalization',

@@ -53,14 +53,63 @@ const DealList = (props) => {
     return (order === 'desc' ? numB - numA : numA - numB);
   };
 
+  // Custom data drop-down for stage edits
+  const stageList = [
+    '0: Idea',
+    'I: Initial Interest',
+    'II: Initial Due Diligence',
+    'III: Bidding',
+    'IV: Finalization',
+  ];
+
+  /**
+   * Custom validators for editable data fields
+   */
+  const notUndefValidator = (value) => {
+    const response = {
+      isValid: true,
+      notification: { type: 'success', msg: '', title: '' },
+    };
+    if (!value) {
+      response.isValid = false;
+      response.notification.type = 'error';
+      response.notification.msg = 'Cell can\'t be empty!';
+      response.notification.title = 'No Value';
+    }
+    return response;
+  };
+
   // Custom afterInsert hook to dispatch the ADD_DEAL action
   const onAfterInsertRow = row => props.addDeal(row);
+
+  // Custom afterSave hook to dispatch EDIT_DEAL action
+  const onAfterSaveCell = (row, cellName, cellValue) => {
+    const payload = {
+      id: row.id,
+      updateKey: cellName,
+      updateValue: cellValue,
+    };
+    props.editDeal(payload);
+  };
+
+  // Custom afterDelete hook to dispatch DELETE_DEAL action
+  const onAfterDeleteRow = (rowArray) => {
+    const payload = { id: rowArray[0] };
+    props.deleteDeal(payload);
+  };
 
   return (
     <div className="container">
       <BootstrapTable
         data={dealSummary}
         insertRow
+        deleteRow
+        selectRow={{ mode: 'radio' }}
+        cellEdit={{
+          mode: 'click',
+          blurToSave: true,
+          afterSaveCell: onAfterSaveCell,
+        }}
         search
         height="75%"
         scrollTop={'Top'}
@@ -70,21 +119,50 @@ const DealList = (props) => {
           noDataText: 'No Deals Found',
           defaultSortName: 'company',
           defaultSortOrder: 'asc',
+          insertText: 'Add Deal',
+          // TO-DO: customize delete alert, pref with bootstrap instead of alert
+          deleteText: 'Delete Deal',
           afterInsertRow: onAfterInsertRow,
+          afterDeleteRow: onAfterDeleteRow,
         }}
       >
-        <TableHeaderColumn isKey dataField="id" dataSort>Deal ID</TableHeaderColumn>
+        <TableHeaderColumn
+          isKey hidden
+          dataField="id"
+          dataSort
+        >Deal ID</TableHeaderColumn>
         <TableHeaderColumn
           dataField="company"
           dataSort
+          editable={{
+            validator: notUndefValidator,
+          }}
         >Company</TableHeaderColumn>
         <TableHeaderColumn
           dataField="SIC"
           dataSort
+          editable={{
+            validator: notUndefValidator,
+          }}
         >SIC Code</TableHeaderColumn>
-        <TableHeaderColumn dataField="stage" dataSort>Stage</TableHeaderColumn>
-        <TableHeaderColumn dataField="nextTask" dataSort>Next Task</TableHeaderColumn>
-        <TableHeaderColumn dataField="expires" dataSort>Expires In</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="stage"
+          dataSort
+          editable={{
+            type: 'select',
+            options: {
+              values: stageList,
+            },
+          }}
+        >Stage</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="nextTask"
+          dataSort
+        >Next Task</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="expires"
+          dataSort
+        >Expires In</TableHeaderColumn>
         <TableHeaderColumn
           dataField="EBITDA"
           dataSort
@@ -108,6 +186,8 @@ const DealList = (props) => {
 DealList.propTypes = {
   deals: PropTypes.arrayOf(PropTypes.object).isRequired,
   addDeal: PropTypes.func.isRequired,
+  editDeal: PropTypes.func.isRequired,
+  deleteDeal: PropTypes.func.isRequired,
 };
 
 module.exports = DealList;
