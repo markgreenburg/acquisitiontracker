@@ -2,58 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import {
+  normalizeInput,
+  gridFormatter,
+  sortEbitda,
+  sortEmployees,
+  notUndefValidator,
+  onBeforeSaveCell,
+} from './helpers/dealListHelper';
 
 // Render data grid
 const DealList = (props) => {
-  // Only push needed data into grid
-  const dealSummary = props.deals.map((deal) => {
-    // Data that needs manipulation and formatting
-    const formattedEbitda = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    })
-      .format(deal.EBITDA);
-    const formattedExpiration = `${deal.expires} Days`;
-    const formattedGrowth = new Intl.NumberFormat('en-US', {
-      style: 'percent',
-    })
-      .format(deal.earningsGrowth);
-    const formattedEmployees = new Intl.NumberFormat('en-us', {
-      maximumFractionDigits: 0,
-      useGrouping: true,
-    })
-      .format(deal.employees);
-    // all together now...
-    const summarizedDeal = {
-      id: deal.id,
-      company: deal.company,
-      SIC: deal.SIC,
-      stage: deal.stage,
-      nextTask: deal.nextTask,
-      expires: formattedExpiration,
-      EBITDA: formattedEbitda,
-      earningsGrowth: formattedGrowth,
-      employees: formattedEmployees,
-    };
-    return summarizedDeal;
-  });
+  const dealSummary = props.deals.map(deal => gridFormatter(deal));
 
-  // Custom sort function for formatted data in table
-  // Replaces commas and $ with empty strings and parses as Num
-  const sortEbitda = (a, b, order) => {
-    const numA = parseInt(a.EBITDA.replace(/,|\$/g, ''), 10);
-    const numB = parseInt(b.EBITDA.replace(/,|\$/g, ''), 10);
-    return (order === 'desc' ? numB - numA : numA - numB);
-  };
-
-  const sortEmployees = (a, b, order) => {
-    const numA = parseInt(a.employees.replace(/,|\$/g, ''), 10);
-    const numB = parseInt(b.employees.replace(/,|\$/g, ''), 10);
-    return (order === 'desc' ? numB - numA : numA - numB);
-  };
-
-  // Custom data drop-down for stage edits
+  // Possible deal stages
   const stageList = [
     '0: Idea',
     'I: Initial Interest',
@@ -63,36 +25,22 @@ const DealList = (props) => {
   ];
 
   /**
-   * Custom validators for editable data fields
+   * Custom afterInsert hook to dispatch the ADD_DEAL action
    */
-  const notUndefValidator = (value) => {
-    const response = {
-      isValid: true,
-      notification: { type: 'success', msg: '', title: '' },
-    };
-    if (!value) {
-      response.isValid = false;
-      response.notification.type = 'error';
-      response.notification.msg = 'Cell can\'t be empty!';
-      response.notification.title = 'No Value';
-    }
-    return response;
-  };
-
-  // Custom afterInsert hook to dispatch the ADD_DEAL action
   const onAfterInsertRow = row => props.addDeal(row);
 
-  // Custom afterSave hook to dispatch EDIT_DEAL action
+  /**
+   * Custom afterSave hook to dispatch EDIT_DEAL action
+   */
   const onAfterSaveCell = (row, cellName, cellValue) => {
-    const payload = {
-      id: row.id,
-      updateKey: cellName,
-      updateValue: cellValue,
-    };
+    const payload = { id: row.id, updateKey: cellName };
+    payload.updateValue = normalizeInput(cellName, cellValue);
     props.editDeal(payload);
   };
 
-  // Custom afterDelete hook to dispatch DELETE_DEAL action
+  /**
+   * Custom afterDelete hook to dispatch DELETE_DEAL action
+   */
   const onAfterDeleteRow = (rowArray) => {
     const payload = { id: rowArray[0] };
     props.deleteDeal(payload);
@@ -109,6 +57,7 @@ const DealList = (props) => {
         cellEdit={{
           mode: 'click',
           blurToSave: true,
+          beforeSaveCell: onBeforeSaveCell,
           afterSaveCell: onAfterSaveCell,
         }}
         search
