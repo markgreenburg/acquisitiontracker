@@ -10,7 +10,6 @@ import { addDeal, editDeal, deleteDeal, changeTab } from '../actions/index';
 import Dashboard from './Dashboard';
 import DealList from './DealList';
 import DealDetails from './DealDetails';
-import AddDeal from './AddDeal';
 
 // Define tab handler as stateless component
 // The different tab names are defined by IDs in Header component
@@ -29,10 +28,8 @@ const Tabs = (props) => {
       );
     case 'dealTab':
       return (<DealDetails />);
-    case 'addDealTab':
-      return (<AddDeal />);
     default:
-      return (<Dashboard />);
+      return (<DealDetails />);
   }
 };
 

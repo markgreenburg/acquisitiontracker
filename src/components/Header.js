@@ -18,12 +18,11 @@ class Header extends React.Component {
 
   render() {
     // Define some reusable snippets for the tab controls
-    const tabIds = ['dashboardTab', 'dealListTab', 'dealTab', 'addDealTab'];
+    const tabIds = ['dashboardTab', 'dealListTab', 'dealTab'];
     const tabStrings = {
       dashboardTab: 'Dashboard',
       dealListTab: 'Deals List',
       dealTab: 'Deal Details',
-      addDealTab: 'Add Deal',
     };
 
     // Make a 'button' for each tab to keep things DRY.
