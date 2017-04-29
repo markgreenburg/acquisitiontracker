@@ -2,7 +2,7 @@
  * This module defines action types for Redux
  */
 
-const addDeal = (dealObject) => {
+export const addDeal = (dealObject) => {
   const addDealAction = {
     type: 'ADD_DEAL',
     payload: dealObject,
@@ -10,7 +10,7 @@ const addDeal = (dealObject) => {
   return addDealAction;
 };
 
-const editDeal = (dealObject) => {
+export const editDeal = (dealObject) => {
   const editDealAction = {
     type: 'EDIT_DEAL',
     payload: dealObject,
@@ -18,7 +18,7 @@ const editDeal = (dealObject) => {
   return editDealAction;
 };
 
-const deleteDeal = (dealObject) => {
+export const deleteDeal = (dealObject) => {
   const deleteDealAction = {
     type: 'DELETE_DEAL',
     payload: dealObject,
@@ -26,7 +26,7 @@ const deleteDeal = (dealObject) => {
   return deleteDealAction;
 };
 
-const changeTab = (tabId) => {
+export const changeTab = (tabId) => {
   const changeTabAction = {
     type: 'CHANGE_TAB',
     payload: tabId,
@@ -34,9 +34,10 @@ const changeTab = (tabId) => {
   return changeTabAction;
 };
 
-module.exports = {
-  addDeal,
-  editDeal,
-  deleteDeal,
-  changeTab,
+export const changeDeal = (dealId) => {
+  const changeDealAction = {
+    type: 'CHANGE_DEAL',
+    payload: dealId,
+  };
+  return changeDealAction;
 };

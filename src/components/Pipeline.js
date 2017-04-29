@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import More from './More';
 import {
   normalizeInput,
   gridFormatter,
@@ -11,19 +12,26 @@ import {
   sortEmployees,
   notUndefValidator,
   onBeforeSaveCell,
-} from './helpers/dealListHelper';
+} from './helpers/pipelineHelper';
 
-// Render data grid
-const DealList = (props) => {
+/**
+ * Functional React component the renders the pipeline data grid
+ * @param {object} props functions, data values passed down from Tab component
+ */
+const Pipeline = (props) => {
   const dealSummary = props.deals.map(deal => gridFormatter(deal));
 
   /**
    * Custom afterInsert hook to dispatch the ADD_DEAL action
+   * @param {object} row proposed row object to be inserted into the data grid
    */
   const onAfterInsertRow = row => props.addDeal(row);
 
   /**
    * Custom afterSave hook to dispatch EDIT_DEAL action
+   * @param {object} row
+   * @param {string} cellName
+   * @param {string} cellValue
    */
   const onAfterSaveCell = (row, cellName, cellValue) => props.editDeal({
     id: row.id,
@@ -33,8 +41,23 @@ const DealList = (props) => {
 
   /**
    * Custom afterDelete hook to dispatch DELETE_DEAL action
+   * @param {array} rowArray array of selected rows (only 1 max) from data grid
    */
   const onAfterDeleteRow = rowArray => props.deleteDeal({ id: rowArray[0] });
+
+  /**
+   * Formats the 'more' links in the 'details' column to display as button
+   * Passes changeTab and changeDeal action dispatchers to the component.
+   * @param {string} cell
+   * @param {object} row
+   */
+  const detailsFormatter = (cell, row) => (
+    <More
+      changeTab={props.changeTab}
+      changeDeal={props.changeDeal}
+      rowId={row.id ? row.id : 0}
+    />
+  );
 
   /**
    * Start Data Grid Options
@@ -79,7 +102,6 @@ const DealList = (props) => {
    * End Data Grid Options
    */
 
-  // TO-DO: Add expandable, editable contacts list
   return (
     <div className="container">
       <BootstrapTable
@@ -122,6 +144,7 @@ const DealList = (props) => {
         <TableHeaderColumn
           dataField="expires"
           dataSort
+          editable={{ validator: notUndefValidator }}
         >Expires In</TableHeaderColumn>
         <TableHeaderColumn
           dataField="EBITDA"
@@ -137,17 +160,24 @@ const DealList = (props) => {
           dataSort
           sortFunc={sortEmployees}
         >Employees</TableHeaderColumn>
+        <TableHeaderColumn
+          dataField="details"
+          editable={false}
+          dataFormat={detailsFormatter}
+        />
       </BootstrapTable>
     </div>
   );
 };
 
-// Check for required props
-DealList.propTypes = {
+/* Add prop checks to Pipeline component */
+Pipeline.propTypes = {
   deals: PropTypes.arrayOf(PropTypes.object).isRequired,
   addDeal: PropTypes.func.isRequired,
   editDeal: PropTypes.func.isRequired,
   deleteDeal: PropTypes.func.isRequired,
+  changeTab: PropTypes.func.isRequired,
+  changeDeal: PropTypes.func.isRequired,
 };
 
-module.exports = DealList;
+export default Pipeline;

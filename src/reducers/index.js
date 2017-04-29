@@ -39,6 +39,13 @@ const masterReducer = (state, action) => {
       };
       return newState;
     }
+    case 'CHANGE_DEAL': {
+      const newState = {
+        ...state,
+        currentDealId: action.payload,
+      };
+      return newState;
+    }
     default:
       return state;
   }

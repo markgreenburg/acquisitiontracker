@@ -11,7 +11,8 @@ const logActions = () => next => (action) => {
 
 const stateInit = {
   deals,
-  activeTab: 'dealListTab',
+  activeTab: 'pipelineTab',
+  currentDealId: 0,
 };
 
 // TO-DO: Remove middleware after testing

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeTab } from '../actions/index';
 
-class Header extends React.Component {
+/**
+ * React component that displays the page header and navigation
+ */
+class Header extends Component {
   constructor(props) {
     super(props);
     this.handleTabClick = this.handleTabClick.bind(this);
   }
 
-  // Gets ID of tab clicked and dispatches CHANGE_TAB action to store
+  /**
+   * Gets ID of tab clicked and dispatches CHANGE_TAB action to store
+   * @param {object} event click event
+   */
   handleTabClick(event) {
     event.preventDefault();
     const tabId = event.target.id;
@@ -18,25 +24,25 @@ class Header extends React.Component {
 
   render() {
     // Define some reusable snippets for the tab controls
-    const tabIds = ['dashboardTab', 'dealListTab', 'dealTab'];
+    const tabIds = ['dashboardTab', 'pipelineTab', 'dealTab'];
     const tabStrings = {
       dashboardTab: 'Dashboard',
-      dealListTab: 'Deals List',
+      pipelineTab: 'Pipeline',
       dealTab: 'Deal Details',
     };
 
-    // Make a 'button' for each tab to keep things DRY.
+    // Make a 'button' for each tab to keep things DRY
     const tabsList = tabIds.map((current) => {
       const anchor = (
         <a href={`# ${current}`} id={current} onClick={this.handleTabClick}>
           {tabStrings[current]}
         </a>
       );
-      // Set active styling in sync with state.
-      if (current === this.props.activeTab) {
-        return (<li key={current} className="active">{anchor}</li>);
-      }
-      return (<li key={current}>{anchor}</li>);
+      // Set active styling in sync with state
+      return (current === this.props.activeTab
+        ? (<li key={current} className="active">{anchor}</li>)
+        : (<li key={current}>{anchor}</li>)
+      );
     });
 
     // Define the main header's DOM elements
@@ -71,13 +77,16 @@ class Header extends React.Component {
   }
 }
 
-// Add proptype checks for component to prevent inadvertent breaking of stuff
+/* Add proptype checks for Header component */
 Header.propTypes = {
   activeTab: PropTypes.string.isRequired,
   changeTab: PropTypes.func.isRequired,
 };
 
-// Pass Redux state and actions to component's props
+/**
+ * Give the component access to Redux store's state via props
+ * @param {object} state current Redux store object
+ */
 const mapStateToProps = (state) => {
   const requiredState = {
     activeTab: state.activeTab,
@@ -85,6 +94,10 @@ const mapStateToProps = (state) => {
   return requiredState;
 };
 
+/**
+ * Give the component access to Redux actions via props
+ * @param {function} dispatch function that allows execution of Redux actions
+ */
 const mapDispatchToProps = (dispatch) => {
   const validActions = {
     changeTab: tab => dispatch(changeTab(tab)),
@@ -92,6 +105,5 @@ const mapDispatchToProps = (dispatch) => {
   return validActions;
 };
 
-// Connect handles the actual hooking up of the component to the store.
-// It's just a layer on top of Redux's subscribe() method, I think.
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Header);
+/* Give module access to Redux */
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

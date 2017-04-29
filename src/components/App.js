@@ -4,7 +4,9 @@ import Tabs from './Tabs';
 import Footer from './Footer';
 import '../../public/css/app.css';
 
-// Use stateless component for App since Redux will handle state
+/**
+ * Functional React component that controls the app's layout
+ */
 const App = () => {
   const appTemplate = (
     <div>
