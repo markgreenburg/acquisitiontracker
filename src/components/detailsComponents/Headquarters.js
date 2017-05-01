@@ -8,39 +8,74 @@ const Headquarters = props => (
         <h4>Headquarters</h4>
       </div>
     </div>
-    <form name="headquarters">
-      <div className="row headquarters-street-one-row">
-        <div className="col-xs-12 headquarters-street-one">
-          Street 1: {props.headquarters.street1}
-        </div>
+    <div className="row headquarters-form-row">
+      <div className="col-xs-12 headquarters-form">
+        <form
+          name="headquarters"
+          onSubmit={props.handleSubmit}
+        >
+          <input
+            value={props.headquarters.street1}
+            type="text"
+            className="form-control"
+            name="street1"
+            placeholder="Street Line 1"
+            onChange={props.handleHqChange}
+          />
+          <input
+            value={props.headquarters.street2}
+            type="text"
+            className="form-control"
+            name="street2"
+            placeholder="Street Line 2"
+            onChange={props.handleHqChange}
+          />
+          <input
+            value={props.headquarters.city}
+            type="text"
+            className="form-control"
+            name="city"
+            placeholder="City"
+            onChange={props.handleHqChange}
+          />
+          <input
+            value={props.headquarters.state}
+            type="text"
+            className="form-control"
+            name="state"
+            placeholder="State"
+            onChange={props.handleHqChange}
+          />
+          <input
+            value={props.headquarters.zip}
+            type="text"
+            className="form-control"
+            name="zip"
+            placeholder="Zip Code"
+            onChange={props.handleHqChange}
+          />
+          <input
+            value={props.headquarters.country}
+            type="text"
+            className="form-control"
+            name="country"
+            placeholder="Country"
+            onChange={props.handleHqChange}
+          />
+          <button
+            name="headquarters"
+            type="submit"
+            className="btn btn-default"
+          >Update</button>
+        </form>
       </div>
-      <div className="row headquarters-street-two-row">
-        <div className="col-xs-12 headquarters-street-two">
-          Street 2: {props.headquarters.street2}
-        </div>
-      </div>
-      <div className="row headquarters-street-city-row">
-        <div className="col-xs-12 headquarters-city">
-          City: {props.headquarters.city}
-        </div>
-      </div>
-      <div className="row headquarters-street-state-row">
-        <div className="col-xs-12 headquarters-state">
-          State: {props.headquarters.state}
-        </div>
-      </div>
-      <div className="row headquarters-zip-row">
-        <div className="col-xs-12 headquarters-zip">
-          Zip: {props.headquarters.zip}
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 );
 
 Headquarters.propTypes = {
   headquarters: PropTypes.objectOf(PropTypes.string).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleHqChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 

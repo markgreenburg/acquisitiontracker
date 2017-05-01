@@ -8,7 +8,7 @@ const CompanyBody = props => (
   <div className="row company-info-body-row">
     <Headquarters
       headquarters={props.deal.headquarters}
-      handleChange={props.handleChange}
+      handleHqChange={props.handleHqChange}
       handleSubmit={props.handleSubmit}
     />
     <Description
@@ -27,6 +27,7 @@ const CompanyBody = props => (
 CompanyBody.propTypes = {
   deal: PropTypes.objectOf(PropTypes.any).isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleHqChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 

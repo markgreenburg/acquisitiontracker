@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Nav from './detailsComponents/Nav';
 import CompanyInfo from './detailsComponents/CompanyInfo';
 
 class DealDetails extends Component {
@@ -8,14 +7,35 @@ class DealDetails extends Component {
     super(props);
     this.state = props.deal;
     this.handleChange = this.handleChange.bind(this);
+    this.handleHqChange = this.handleHqChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * Updates local state based on user input in child containers
+   * @param {object} event change event
+   */
   handleChange(event) {
     const { target } = event;
     this.setState({ [target.name]: target.value });
   }
 
+  /**
+   * Updates local state for Headquarters address based on user input
+   * TO-DO: form validation
+   * @param {object} event change event
+   */
+  handleHqChange(event) {
+    const changeFragment = { [event.target.name]: event.target.value };
+    this.setState({
+      headquarters: Object.assign(this.state.headquarters, changeFragment),
+    }, () => console.log(this.state.headquarters));
+  }
+
+  /**
+   * Dispatches 'EDIT_DEAL' action on save events in child components
+   * @param {object} event save event
+   */
   handleSubmit(event) {
     event.preventDefault();
     const { target } = event;
@@ -31,10 +51,11 @@ class DealDetails extends Component {
   render() {
     return (
       <div className="container">
-        <Nav changeTab={this.props.changeTab} />
         <CompanyInfo
           deal={this.state}
+          changeTab={this.props.changeTab}
           handleChange={this.handleChange}
+          handleHqChange={this.handleHqChange}
           handleSubmit={this.handleSubmit}
         />
         <div className="row deal-info-row">

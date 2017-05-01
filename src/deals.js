@@ -46,9 +46,7 @@ const deals = [
     active: true,
     startDate: '2017-01-13', // TO-DO: convert to Date()
     description:
-      `Retail energy services company founded in 1999 that provides residential
-       and commercial customers in competitive markets across the United States
-       . Founded in 1999.`,
+      'Retail energy services company founded in 1999 that provides residential and commercial customers in competitive markets across the United States. Founded in 1999.',
     meetings: [
       {
         date: '2017-01-13', // TO-DO: convert to Date()

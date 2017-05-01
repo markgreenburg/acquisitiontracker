@@ -2,22 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CompanyName = props => (
-  <div className="row company-info-header-row">
-    <div className="col-xs-12 company-info-header-container">
-      <h2 className="company-info-header">
-        <form
-          name="company"
-          onSubmit={props.handleSubmit}
-        >
-          <input
-            name="company"
-            type="text"
-            value={props.deal.company}
-            onChange={props.handleChange}
-          />
-        </form>
-      </h2>
-    </div>
+  <div className="col-sm-10 col-xs-12 company-info-name-container">
+    <form
+      name="company"
+      className="text-center"
+      onSubmit={props.handleSubmit}
+    >
+      <input
+        name="company"
+        type="text"
+        className="text-center"
+        value={props.deal.company}
+        onChange={props.handleChange}
+      />
+    </form>
   </div>
 );
 

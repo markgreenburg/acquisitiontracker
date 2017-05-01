@@ -10,13 +10,14 @@ const Description = props => (
     </div>
     <div className="row description-content-row">
       <form
+        className="col-xs-12 description-content-form"
         name="description"
         onSubmit={props.handleSubmit}
       >
         <div className="row description-content-row">
           <div className="col-xs-12 description-content">
             <textarea
-              rows="5"
+              rows="10"
               cols="45"
               name="description"
               value={props.deal.description}
