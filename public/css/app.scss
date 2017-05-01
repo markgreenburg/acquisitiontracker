@@ -1,4 +1,10 @@
-// Only way to style some of Griddle's containers
+// Ensure insert modal has enough margin to clear the nav bar
 .modal-content {
     margin-top: 60px;
 }
+
+// Align back button in deal details tab to rest of content
+.nav-back-button-container {
+    padding-left: 0;
+}
+
