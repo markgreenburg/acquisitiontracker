@@ -31,13 +31,19 @@ const handleGrowth = (value) => {
 const handleExpires = value => value.replace(/\D+/g, '');
 
 /**
+ * Normalizes the employee count input value
+ * @param {string} value the value of the cell contents to be saved
+ */
+const handleEmployees = value => value.replace(/\D+/g, '');
+
+/**
  * Is called on each input field in the data grid. Looks for cells that need
  * to be manipulated and then calls the corresponding handlers
  * @param {string} cellName the header name of the cell that's being saved
  * @param {string} cellValue the value of the cell that's being saved
  */
 export const normalizeInput = (cellName, cellValue) => {
-  const cellsToFilter = ['EBITDA', 'earningsGrowth', 'expires'];
+  const cellsToFilter = ['EBITDA', 'earningsGrowth', 'expires', 'employees'];
   switch (cellName) {
     case cellsToFilter[0]:
       return handleEBITDA(cellValue);
@@ -45,6 +51,8 @@ export const normalizeInput = (cellName, cellValue) => {
       return handleGrowth(cellValue);
     case cellsToFilter[2]:
       return handleExpires(cellValue);
+    case cellsToFilter[3]:
+      return handleEmployees(cellValue);
     default:
       return cellValue;
   }
@@ -142,7 +150,7 @@ export const notUndefValidator = (value) => {
  * @param {string} cellValue proposed new value of the cell being edited
  */
 export const onBeforeSaveCell = (row, cellName, cellValue) => {
-  const cellsToFilter = ['EBITDA', 'earningsGrowth'];
+  const cellsToFilter = ['EBITDA', 'earningsGrowth', 'employees'];
   if (cellsToFilter.indexOf(cellName) < 0) { return true; }
   const strippedNum = parseFloat(cellValue.replace(/,|%|\$/g, ''), 10);
   return !isNaN(strippedNum);

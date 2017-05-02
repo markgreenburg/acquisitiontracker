@@ -8,13 +8,16 @@ const CompanyName = props => (
       className="text-center"
       onSubmit={props.handleSubmit}
     >
-      <input
-        name="company"
-        type="text"
-        className="text-center"
-        value={props.deal.company}
-        onChange={props.handleChange}
-      />
+      <div className="form-group">
+        <input
+          name="company"
+          type="text"
+          className="text-center"
+          value={props.deal.company}
+          onChange={props.handleChange}
+          required
+        />
+      </div>
     </form>
   </div>
 );

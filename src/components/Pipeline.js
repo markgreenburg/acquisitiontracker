@@ -161,6 +161,8 @@ const Pipeline = (props) => {
           sortFunc={sortEmployees}
         >Employees</TableHeaderColumn>
         <TableHeaderColumn
+          dataAlign="center"
+          width="60"
           dataField="details"
           editable={false}
           dataFormat={detailsFormatter}

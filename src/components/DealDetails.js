@@ -61,10 +61,6 @@ class DealDetails extends Component {
           addContact={this.props.addContact}
           deleteContact={this.props.deleteContact}
         />
-        <div className="row deal-info-row">
-        </div>
-        <div className="row news-info-row">
-        </div>
       </div>
     );
   }
@@ -73,11 +69,8 @@ class DealDetails extends Component {
 DealDetails.propTypes = {
   deal: PropTypes.objectOf(PropTypes.any).isRequired,
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  addDeal: PropTypes.func.isRequired,
   editDeal: PropTypes.func.isRequired,
-  deleteDeal: PropTypes.func.isRequired,
   changeTab: PropTypes.func.isRequired,
-  changeDeal: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

@@ -1,3 +1,29 @@
+// -- Start Vars
+
+// -- End Vars
+
+div.company-info-name-container {
+    form {
+        div.form-group {
+            input {
+                border: 0;
+                outline: 0;
+                font-size: 250%;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            span: {
+                i: {
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}
+
+
+
 // Ensure insert modal has enough margin to clear the nav bar
 .modal-content {
     margin-top: 60px;

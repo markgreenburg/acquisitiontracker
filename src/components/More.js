@@ -22,7 +22,7 @@ class More extends Component {
 
   render() {
     return (
-      <button className="btn btn-default" onClick={this.handleClick}>
+      <button className="btn btn-sm btn-info" onClick={this.handleClick}>
         <i className="glyphicon glyphicon-chevron-right" />
       </button>);
   }
