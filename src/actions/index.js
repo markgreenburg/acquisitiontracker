@@ -32,6 +32,11 @@ export const addContact = contactObj => ({
   payload: contactObj,
 });
 
+export const editContact = contactObj => ({
+  type: 'EDIT_CONTACT',
+  payload: contactObj,
+});
+
 export const deleteContact = contactObj => ({
   type: 'DELETE_CONTACT',
   payload: contactObj,

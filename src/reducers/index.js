@@ -1,5 +1,9 @@
 // We may be able to get away with just a single reducer if data structure is simple
+// Otherwise . . .
 // import { combineReducers } from 'redux';
+// import contactReducer from './contactReducer';
+// import dealReducer from './dealReducer';
+// import navReducer from './navReducer';
 import emptyDeal from '../emptyDeal';
 /**
  * For now, the only reducer used by this app. Takes actions from the app and
@@ -98,4 +102,5 @@ const masterReducer = (state, action) => {
   }
 };
 
+// const masterReducer = combineReducers({ dealReducer, contactReducer, navReducer });
 export default masterReducer;
