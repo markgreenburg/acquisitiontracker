@@ -1,14 +1,6 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import masterReducer from './reducers/index';
 import deals from './deals';
-
-// Define basic logging middleware for our actions
-// TO-DO: Remove middleware after testing
-const logActions = ({ getState }) => next => (action) => {
-  console.log('Action Dispatched: ', action);
-  next(action);
-  console.log('new state: ', getState());
-};
 
 const stateInit = {
   deals,
@@ -17,10 +9,12 @@ const stateInit = {
 };
 
 // TO-DO: Remove middleware after testing
+/* eslint-disable no-underscore-dangle */
 const store = createStore(
   masterReducer,
   stateInit,
-  applyMiddleware(logActions),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+/* eslint-enable */
 
 export default store;

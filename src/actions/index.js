@@ -31,3 +31,8 @@ export const addContact = contactObj => ({
   type: 'ADD_CONTACT',
   payload: contactObj,
 });
+
+export const deleteContact = contactObj => ({
+  type: 'DELETE_CONTACT',
+  payload: contactObj,
+});

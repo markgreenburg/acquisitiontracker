@@ -6,11 +6,13 @@ import AddContact from './AddContact';
 const Contacts = (props) => {
   const contactsList = props.contacts.map(contact => (
     <Contact
-      key={contact.name + contact.role}
+      key={contact.name + contact.role + contact.email + contact.phone}
       name={contact.name}
       role={contact.role}
       phone={contact.phone}
       email={contact.email}
+      dealId={props.dealId}
+      deleteContact={props.deleteContact}
     />
   ));
   return (
@@ -35,7 +37,10 @@ const Contacts = (props) => {
               {contactsList}
             </tbody>
           </table>
-          <AddContact addContact={props.addContact} dealId={props.dealId} />
+          <AddContact
+            addContact={props.addContact}
+            dealId={props.dealId}
+          />
         </div>
       </div>
     </div>
@@ -48,6 +53,7 @@ Contacts.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
 
 export default Contacts;

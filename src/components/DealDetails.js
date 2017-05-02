@@ -59,6 +59,7 @@ class DealDetails extends Component {
           handleHqChange={this.handleHqChange}
           handleSubmit={this.handleSubmit}
           addContact={this.props.addContact}
+          deleteContact={this.props.deleteContact}
         />
         <div className="row deal-info-row">
         </div>
@@ -78,6 +79,7 @@ DealDetails.propTypes = {
   changeTab: PropTypes.func.isRequired,
   changeDeal: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
 
 export default DealDetails;

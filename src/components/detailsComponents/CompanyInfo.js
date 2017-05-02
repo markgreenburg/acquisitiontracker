@@ -22,6 +22,7 @@ const CompanyInfo = props => (
         handleHqChange={props.handleHqChange}
         handleSubmit={props.handleSubmit}
         addContact={props.addContact}
+        deleteContact={props.deleteContact}
       />
     </div>
   </div>
@@ -34,6 +35,7 @@ CompanyInfo.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

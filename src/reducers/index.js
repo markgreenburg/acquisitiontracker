@@ -67,6 +67,32 @@ const masterReducer = (state, action) => {
         ],
       });
     }
+    case 'DELETE_CONTACT': {
+      const dealsToLeave = [
+        ...state.deals.filter(deal => (deal.id !== action.payload.id)),
+      ];
+      const dealToUpdate = {
+        ...state.deals.find(deal => deal.id === action.payload.id),
+      };
+      return ({
+        ...state,
+        deals: [
+          ...dealsToLeave,
+          {
+            ...dealToUpdate,
+            contacts: [
+              ...dealToUpdate.contacts
+                .filter(contact => (
+                  contact.name !== action.payload.contact.name
+                  || contact.email !== action.payload.contact.email
+                  || contact.phone !== action.payload.contact.phone
+                  || contact.role !== action.payload.contact.role
+                )),
+            ],
+          },
+        ],
+      });
+    }
     default:
       return state;
   }

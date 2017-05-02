@@ -13,6 +13,7 @@ import {
   changeTab,
   changeDeal,
   addContact,
+  deleteContact,
 } from '../actions/index';
 import Dashboard from './Dashboard';
 import Pipeline from './Pipeline';
@@ -49,6 +50,7 @@ const Tabs = (props) => {
           changeTab={props.changeTab}
           changeDeal={props.changeDeal}
           addContact={props.addContact}
+          deleteContact={props.deleteContact}
         />
       );
     default:
@@ -76,6 +78,7 @@ Tabs.propTypes = {
   changeTab: PropTypes.func.isRequired,
   changeDeal: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
@@ -103,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
   const validActions = {
     addDeal: deal => dispatch(addDeal(deal)),
     addContact: contact => dispatch(addContact(contact)),
+    deleteContact: contact => dispatch(deleteContact(contact)),
     editDeal: deal => dispatch(editDeal(deal)),
     deleteDeal: deal => dispatch(deleteDeal(deal)),
     changeTab: tab => dispatch(changeTab(tab)),
