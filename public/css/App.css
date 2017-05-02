@@ -1,11 +1,9 @@
-div.company-info-name-container form div.form-group {
-  span-i-visibility: hidden; }
-  div.company-info-name-container form div.form-group input {
-    border: 0;
-    outline: 0;
-    font-size: 250%; }
-    div.company-info-name-container form div.form-group input:hover {
-      text-decoration: underline; }
+div.company-info-name-container form div.form-group input {
+  border: 0;
+  outline: 0;
+  font-size: 250%; }
+  div.company-info-name-container form div.form-group input:hover {
+    text-decoration: underline; }
 
 .modal-content {
   margin-top: 60px; }
