@@ -8,7 +8,6 @@ const stateInit = {
   currentDealId: 0,
 };
 
-// TO-DO: Remove middleware after testing
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   masterReducer,
