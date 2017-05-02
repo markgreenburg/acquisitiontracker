@@ -29,7 +29,7 @@ class DealDetails extends Component {
     const changeFragment = { [event.target.name]: event.target.value };
     this.setState({
       headquarters: Object.assign(this.state.headquarters, changeFragment),
-    }, () => console.log(this.state.headquarters));
+    });
   }
 
   /**
@@ -53,10 +53,12 @@ class DealDetails extends Component {
       <div className="container">
         <CompanyInfo
           deal={this.state}
+          contacts={this.props.contacts}
           changeTab={this.props.changeTab}
           handleChange={this.handleChange}
           handleHqChange={this.handleHqChange}
           handleSubmit={this.handleSubmit}
+          addContact={this.props.addContact}
         />
         <div className="row deal-info-row">
         </div>
@@ -68,13 +70,14 @@ class DealDetails extends Component {
 }
 
 DealDetails.propTypes = {
-  currentDealId: PropTypes.number.isRequired,
   deal: PropTypes.objectOf(PropTypes.any).isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
   addDeal: PropTypes.func.isRequired,
   editDeal: PropTypes.func.isRequired,
   deleteDeal: PropTypes.func.isRequired,
   changeTab: PropTypes.func.isRequired,
   changeDeal: PropTypes.func.isRequired,
+  addContact: PropTypes.func.isRequired,
 };
 
 export default DealDetails;

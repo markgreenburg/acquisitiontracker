@@ -1,17 +1,22 @@
 // We may be able to get away with just a single reducer if data structure is simple
 // import { combineReducers } from 'redux';
-
+import emptyDeal from '../emptyDeal';
+/**
+ * For now, the only reducer used by this app. Takes actions from the app and
+ * updates the Redux store's state accordingly
+ * TO-DO: split up reducer and pull in combineReducers
+ * @param {object} state current state of the Redux store
+ * @param {object} action action object, consists of action type and payload
+ */
 const masterReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_DEAL': {
-      const newDealId = { id: state.deals.length };
-      const newDeal = Object.assign(action.payload, newDealId);
-      const newState = {
+    case 'ADD_DEAL':
+      return ({
         ...state,
-        deals: [...state.deals, newDeal],
-      };
-      return newState;
-    }
+        deals: [
+          ...state.deals,
+          { ...emptyDeal, ...action.payload, id: state.deals.length }],
+      });
     case 'EDIT_DEAL': {
       const updateSnippet = {};
       updateSnippet[action.payload.updateKey] = action.payload.updateValue;
@@ -25,26 +30,42 @@ const masterReducer = (state, action) => {
       };
       return newState;
     }
-    case 'DELETE_DEAL': {
-      const newState = {
+    case 'DELETE_DEAL':
+      return ({
         ...state,
-        deals: state.deals.filter(current => (current.id !== action.payload.id)),
-      };
-      return newState;
-    }
-    case 'CHANGE_TAB': {
-      const newState = {
+        deals: state.deals.filter(deal => (deal.id !== action.payload.id)),
+      });
+    case 'CHANGE_TAB':
+      return ({
         ...state,
         activeTab: action.payload,
-      };
-      return newState;
-    }
-    case 'CHANGE_DEAL': {
-      const newState = {
+      });
+    case 'CHANGE_DEAL':
+      return ({
         ...state,
         currentDealId: action.payload,
+      });
+    // TO-DO: Compose reducers. This is a disaster...
+    case 'ADD_CONTACT': {
+      const dealsToLeave = [
+        ...state.deals.filter(deal => (deal.id !== action.payload.id)),
+      ];
+      const dealToUpdate = {
+        ...state.deals.find(deal => deal.id === action.payload.id),
       };
-      return newState;
+      return ({
+        ...state,
+        deals: [
+          ...dealsToLeave,
+          {
+            ...dealToUpdate,
+            contacts: [
+              ...dealToUpdate.contacts,
+              action.payload.contact,
+            ],
+          },
+        ],
+      });
     }
     default:
       return state;

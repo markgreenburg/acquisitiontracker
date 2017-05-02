@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Contact from './Contact';
+import AddContact from './AddContact';
 
 const Contacts = (props) => {
   const contactsList = props.contacts.map(contact => (
     <Contact
+      key={contact.name + contact.role}
       name={contact.name}
       role={contact.role}
       phone={contact.phone}
@@ -32,13 +34,8 @@ const Contacts = (props) => {
             <tbody>
               {contactsList}
             </tbody>
-            <tfooter>
-              <button
-                className="btn btn-success"
-                onClick={() => console.log('add a contact!')}
-              ><i className="glyphicon glyphicon-plus" /> Add Contact</button>
-            </tfooter>
           </table>
+          <AddContact addContact={props.addContact} dealId={props.dealId} />
         </div>
       </div>
     </div>
@@ -47,8 +44,10 @@ const Contacts = (props) => {
 
 Contacts.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  dealId: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  addContact: PropTypes.func.isRequired,
 };
 
 export default Contacts;

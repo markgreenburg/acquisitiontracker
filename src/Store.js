@@ -4,9 +4,10 @@ import deals from './deals';
 
 // Define basic logging middleware for our actions
 // TO-DO: Remove middleware after testing
-const logActions = () => next => (action) => {
+const logActions = ({ getState }) => next => (action) => {
   console.log('Action Dispatched: ', action);
   next(action);
+  console.log('new state: ', getState());
 };
 
 const stateInit = {

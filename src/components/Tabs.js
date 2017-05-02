@@ -12,6 +12,7 @@ import {
   deleteDeal,
   changeTab,
   changeDeal,
+  addContact,
 } from '../actions/index';
 import Dashboard from './Dashboard';
 import Pipeline from './Pipeline';
@@ -40,12 +41,14 @@ const Tabs = (props) => {
       return (
         <DealDetails
           currentDealId={props.currentDealId}
-          deal={props.deals[props.currentDealId] || {}}
+          deal={props.deals.find(deal => deal.id === props.currentDealId)}
+          contacts={props.contacts}
           addDeal={props.addDeal}
           editDeal={props.editDeal}
           deleteDeal={props.deleteDeal}
           changeTab={props.changeTab}
           changeDeal={props.changeDeal}
+          addContact={props.addContact}
         />
       );
     default:
@@ -72,6 +75,8 @@ Tabs.propTypes = {
   deleteDeal: PropTypes.func.isRequired,
   changeTab: PropTypes.func.isRequired,
   changeDeal: PropTypes.func.isRequired,
+  addContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 /**
@@ -80,6 +85,9 @@ Tabs.propTypes = {
  */
 const mapStateToProps = (state) => {
   const requiredState = {
+    contacts: state.deals
+      .find(deal => deal.id === state.currentDealId)
+      .contacts,
     activeTab: state.activeTab,
     deals: state.deals,
     currentDealId: state.currentDealId,
@@ -94,6 +102,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const validActions = {
     addDeal: deal => dispatch(addDeal(deal)),
+    addContact: contact => dispatch(addContact(contact)),
     editDeal: deal => dispatch(editDeal(deal)),
     deleteDeal: deal => dispatch(deleteDeal(deal)),
     changeTab: tab => dispatch(changeTab(tab)),

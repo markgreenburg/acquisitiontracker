@@ -2,42 +2,32 @@
  * This module defines action types for Redux
  */
 
-export const addDeal = (dealObject) => {
-  const addDealAction = {
-    type: 'ADD_DEAL',
-    payload: dealObject,
-  };
-  return addDealAction;
-};
+export const addDeal = dealObject => ({
+  type: 'ADD_DEAL',
+  payload: dealObject,
+});
 
-export const editDeal = (dealObject) => {
-  const editDealAction = {
-    type: 'EDIT_DEAL',
-    payload: dealObject,
-  };
-  return editDealAction;
-};
+export const editDeal = dealObject => ({
+  type: 'EDIT_DEAL',
+  payload: dealObject,
+});
 
-export const deleteDeal = (dealObject) => {
-  const deleteDealAction = {
-    type: 'DELETE_DEAL',
-    payload: dealObject,
-  };
-  return deleteDealAction;
-};
+export const deleteDeal = dealObject => ({
+  type: 'DELETE_DEAL',
+  payload: dealObject,
+});
 
-export const changeTab = (tabId) => {
-  const changeTabAction = {
-    type: 'CHANGE_TAB',
-    payload: tabId,
-  };
-  return changeTabAction;
-};
+export const changeTab = tabId => ({
+  type: 'CHANGE_TAB',
+  payload: tabId,
+});
 
-export const changeDeal = (dealId) => {
-  const changeDealAction = {
-    type: 'CHANGE_DEAL',
-    payload: dealId,
-  };
-  return changeDealAction;
-};
+export const changeDeal = dealId => ({
+  type: 'CHANGE_DEAL',
+  payload: dealId,
+});
+
+export const addContact = contactObj => ({
+  type: 'ADD_CONTACT',
+  payload: contactObj,
+});

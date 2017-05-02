@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Contact = props => (
-  <tr>
+  <tr key={props.name}>
     <td><a href={`mailTo: ${props.email}`}>{props.name}</a></td>
     <td>{props.role}</td>
     <td>{props.phone}</td>
