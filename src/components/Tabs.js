@@ -86,6 +86,7 @@ Tabs.propTypes = {
  * Give the component access to Redux store's state via props
  * @param {object} state current Redux store object
  */
+// TO-DO: Fix undefined for find contacts
 const mapStateToProps = (state) => {
   const requiredState = {
     contacts: state.deals
