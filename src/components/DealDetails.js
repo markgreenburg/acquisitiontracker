@@ -28,7 +28,7 @@ class DealDetails extends Component {
   handleHqChange(event) {
     const changeFragment = { [event.target.name]: event.target.value };
     this.setState({
-      headquarters: Object.assign(this.state.headquarters, changeFragment),
+      headquarters: { ...this.state.headquarters, changeFragment },
     });
   }
 
@@ -39,7 +39,6 @@ class DealDetails extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { target } = event;
-    console.log(target.name);
     if (!this.state[target.name]) { return; }
     this.props.editDeal({
       id: this.props.deal.id,

@@ -11,19 +11,25 @@ const CompanyBody = props => (
       handleHqChange={props.handleHqChange}
       handleSubmit={props.handleSubmit}
     />
-    <Description
-      deal={props.deal}
-      handleChange={props.handleChange}
-      handleSubmit={props.handleSubmit}
-    />
-    <Contacts
-      contacts={props.contacts}
-      handleChange={props.handleChange}
-      handleSubmit={props.handleSubmit}
-      addContact={props.addContact}
-      deleteContact={props.deleteContact}
-      dealId={props.deal.id}
-    />
+    <div className="col-sm-12 col-md-9">
+      <div className="row">
+        <Description
+          deal={props.deal}
+          handleChange={props.handleChange}
+          handleSubmit={props.handleSubmit}
+        />
+      </div>
+      <div className="row">
+        <Contacts
+          contacts={props.contacts}
+          handleChange={props.handleChange}
+          handleSubmit={props.handleSubmit}
+          addContact={props.addContact}
+          deleteContact={props.deleteContact}
+          dealId={props.deal.id}
+        />
+      </div>
+    </div>
   </div>
 );
 

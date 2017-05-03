@@ -16,7 +16,7 @@ const Contacts = (props) => {
     />
   ));
   return (
-    <div className="col-md-4 col-xs-12 company-info-body-right">
+    <div className="col-md-5 col-xs-12 company-info-body-right">
       <div className="row contacts-header-row">
         <div className="col-xs-12 contacts-header-container">
           <h4>Key Contacts</h4>
@@ -29,6 +29,7 @@ const Contacts = (props) => {
               <tr>
                 <th className="text-center">Name</th>
                 <th className="text-center">Role</th>
+                <th className="text-center">Email</th>
                 <th className="text-center">Phone</th>
                 <th />
               </tr>
@@ -50,8 +51,6 @@ const Contacts = (props) => {
 Contacts.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   dealId: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

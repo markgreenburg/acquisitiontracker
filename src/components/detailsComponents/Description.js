@@ -17,8 +17,8 @@ const Description = props => (
         <div className="row description-content-row">
           <div className="col-xs-12 description-content">
             <textarea
-              rows="14"
-              cols="45"
+              rows="4"
+              cols="95"
               name="description"
               value={props.deal.description}
               onChange={props.handleChange}

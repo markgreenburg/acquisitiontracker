@@ -5,17 +5,19 @@ class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleEdit: false,
       name: this.props.name,
       role: this.props.role,
-      phone: this.props.phone,
       email: this.props.email,
+      phone: this.props.phone,
     };
-    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Dispatches 'DELETE_CONTACT' action on matching contact
+   */
   handleDelete() {
     const { name, email, role, phone } = this.props;
     const contactObject = {
@@ -25,61 +27,46 @@ class Contact extends Component {
     this.props.deleteContact(contactObject);
   }
 
-  handleChange() {
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
     // Update state with new edited input values
   }
 
-  toggleEdit() {
-    this.setState({ toggleEdit: !this.state.toggleEdit }, () => {
-      console.log(this.state);
-    });
+  /**
+   * Toggles boolean editor view state
+   */
+  handleSave() {
+    console.log('changes saved!');
   }
 
   render() {
-    const dataRow = this.state.toggleEdit
-      ? (
-        <tr key={this.props.name}>
-          <td><a href={`mailTo: ${this.props.email}`}>{this.props.name}</a></td>
-          <td>{this.props.role}</td>
-          <td>{this.props.phone}</td>
-          <td>
-            <div className="btn-group" role="group" aria-label="edit contact">
-              <button
-                type="button"
-                className="btn btn-info btn-xs"
-                onClick={this.toggleEdit}
-              ><i className="glyphicon glyphicon-edit" /></button>
-              <button
-                type="button"
-                className="btn btn-warning btn-xs"
-                onClick={this.handleDelete}
-              ><i className="glyphicon glyphicon-remove" /></button>
-            </div>
-          </td>
-        </tr>
-      ) : (
-        <tr key={this.props.name}>
-          <td><a href={`mailTo: ${this.props.email}`}>{this.props.name}</a></td>
-          <td>{this.props.role}</td>
-          <td>{this.props.phone}</td>
-          <td>
-            <div className="btn-group" role="group" aria-label="edit contact">
-              <button
-                type="button"
-                className="btn btn-info btn-xs"
-                onClick={this.toggleEdit}
-              ><i className="glyphicon glyphicon-edit" /></button>
-              <button
-                type="button"
-                className="btn btn-warning btn-xs"
-                onClick={this.handleDelete}
-              ><i className="glyphicon glyphicon-remove" /></button>
-            </div>
-          </td>
-        </tr>
-      );
-
-    return dataRow;
+    const contactFields = Object.keys(this.state);
+    const contactRow = contactFields.map(key => (
+      <td key={key + this.state[key]}><input
+        type={key !== 'email' ? 'text' : 'email'}
+        name={key}
+        value={this.state[key]}
+        onChange={this.handleChange}
+        required
+      /></td>
+    ));
+    return (
+      <tr>
+        {contactRow}
+        <td>
+          <button
+            title="Save"
+            className="btn btn-info btn-xs glyphicon glyphicon-ok"
+            onClick={this.handleSave}
+          />
+          <button
+            title="Delete"
+            className="btn btn-warning btn-xs glyphicon glyphicon-remove"
+            onClick={this.handleDelete}
+          />
+        </td>
+      </tr>
+    );
   }
 }
 

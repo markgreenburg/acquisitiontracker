@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Headquarters = props => (
-  <div className="col-md-4 col-xs-12 company-info-body-left">
+  <div className="col-sm-12 col-md-3 company-info-body-left">
     <div className="row headquarters-header-row">
       <div className="col-xs-12 headquarters-header-container">
         <h4>Headquarters</h4>
