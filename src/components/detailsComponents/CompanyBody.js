@@ -25,6 +25,7 @@ const CompanyBody = props => (
           handleChange={props.handleChange}
           handleSubmit={props.handleSubmit}
           addContact={props.addContact}
+          editContact={props.editContact}
           deleteContact={props.deleteContact}
           dealId={props.deal.id}
         />
@@ -40,6 +41,7 @@ CompanyBody.propTypes = {
   handleHqChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };
 

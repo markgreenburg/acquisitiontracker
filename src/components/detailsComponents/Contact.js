@@ -5,10 +5,10 @@ class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.name,
-      role: this.props.role,
-      email: this.props.email,
-      phone: this.props.phone,
+      name: this.props.contactInfo.name,
+      role: this.props.contactInfo.role,
+      email: this.props.contactInfo.email,
+      phone: this.props.contactInfo.phone,
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -19,7 +19,7 @@ class Contact extends Component {
    * Dispatches 'DELETE_CONTACT' action on matching contact
    */
   handleDelete() {
-    const { name, email, role, phone } = this.props;
+    const { name, email, role, phone } = this.props.contactInfo;
     const contactObject = {
       id: this.props.dealId,
       contact: { name, email, role, phone },
@@ -29,29 +29,32 @@ class Contact extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    // Update state with new edited input values
   }
 
   /**
    * Toggles boolean editor view state
    */
   handleSave() {
-    console.log('changes saved!');
+    this.props.editContact({
+      id: this.props.dealId,
+      contactKey: this.props.keyProp,
+      contact: this.state,
+    });
   }
 
   render() {
     const contactFields = Object.keys(this.state);
-    const contactRow = contactFields.map(key => (
-      <td key={key + this.state[key]}><input
-        type={key !== 'email' ? 'text' : 'email'}
-        name={key}
-        value={this.state[key]}
+    const contactRow = contactFields.map(stateKey => (
+      <td key={stateKey}><input
+        type={stateKey !== 'email' ? 'text' : 'email'}
+        name={stateKey}
+        value={this.state[stateKey]}
         onChange={this.handleChange}
         required
       /></td>
     ));
     return (
-      <tr>
+      <tr key={`tr_${this.props.keyProp}`}>
         {contactRow}
         <td>
           <button
@@ -71,11 +74,10 @@ class Contact extends Component {
 }
 
 Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  role: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  contactInfo: PropTypes.objectOf(PropTypes.string).isRequired,
+  keyProp: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
   dealId: PropTypes.number.isRequired,
 };
 

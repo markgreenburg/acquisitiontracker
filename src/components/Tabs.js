@@ -13,6 +13,7 @@ import {
   changeTab,
   changeDeal,
   addContact,
+  editContact,
   deleteContact,
 } from '../actions/index';
 import Dashboard from './Dashboard';
@@ -50,6 +51,7 @@ const Tabs = (props) => {
           changeTab={props.changeTab}
           changeDeal={props.changeDeal}
           addContact={props.addContact}
+          editContact={props.editContact}
           deleteContact={props.deleteContact}
         />
       );
@@ -78,6 +80,7 @@ Tabs.propTypes = {
   changeTab: PropTypes.func.isRequired,
   changeDeal: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
@@ -86,7 +89,7 @@ Tabs.propTypes = {
  * Give the component access to Redux store's state via props
  * @param {object} state current Redux store object
  */
-// TO-DO: Fix undefined for find contacts
+// TO-DO: Fix undefined for find contacts (init for new companies)
 const mapStateToProps = (state) => {
   const requiredState = {
     contacts: state.deals
@@ -107,6 +110,7 @@ const mapDispatchToProps = (dispatch) => {
   const validActions = {
     addDeal: deal => dispatch(addDeal(deal)),
     addContact: contact => dispatch(addContact(contact)),
+    editContact: contact => dispatch(editContact(contact)),
     deleteContact: contact => dispatch(deleteContact(contact)),
     editDeal: deal => dispatch(editDeal(deal)),
     deleteDeal: deal => dispatch(deleteDeal(deal)),

@@ -7,11 +7,10 @@ const Contacts = (props) => {
   const contactsList = props.contacts.map(contact => (
     <Contact
       key={contact.name + contact.role + contact.email + contact.phone}
-      name={contact.name}
-      role={contact.role}
-      phone={contact.phone}
-      email={contact.email}
+      keyProp={contact.name + contact.role + contact.email + contact.phone}
       dealId={props.dealId}
+      contactInfo={contact}
+      editContact={props.editContact}
       deleteContact={props.deleteContact}
     />
   ));
@@ -52,6 +51,7 @@ Contacts.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   dealId: PropTypes.number.isRequired,
   addContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };
 

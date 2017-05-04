@@ -34,11 +34,21 @@ const masterReducer = (state, action) => {
       };
       return newState;
     }
-    case 'DELETE_DEAL':
+    case 'DELETE_DEAL': {
+      const filteredDeals = state.deals.filter(deal => (deal.id !== action.payload.id));
+      if (action.payload.id !== state.currentDealId) {
+        return ({
+          ...state,
+          deals: state.deals.filter(deal => (deal.id !== action.payload.id)),
+        });
+      }
+      const newCurrentDeal = Math.min(...filteredDeals.map(deal => deal.id));
       return ({
         ...state,
-        deals: state.deals.filter(deal => (deal.id !== action.payload.id)),
+        currentDealId: newCurrentDeal,
+        deals: filteredDeals,
       });
+    }
     case 'CHANGE_TAB':
       return ({
         ...state,
@@ -70,6 +80,22 @@ const masterReducer = (state, action) => {
           },
         ],
       });
+    }
+    case 'EDIT_CONTACT': {
+      const dealsToLeave = [
+        ...state.deals.filter(deal => (deal.id !== action.payload.id)),
+      ];
+      const dealToUpdate = {
+        ...state.deals.find(deal => deal.id === action.payload.id),
+      };
+      const filteredContacts = dealToUpdate.contacts.filter(contact => (
+        (contact.name + contact.role + contact.email + contact.phone)
+          !== action.payload.contactKey));
+      const newDeal = {
+        ...dealToUpdate,
+        contacts: [...filteredContacts, action.payload.contact],
+      };
+      return ({ ...state, deals: [...dealsToLeave, newDeal] });
     }
     case 'DELETE_CONTACT': {
       const dealsToLeave = [

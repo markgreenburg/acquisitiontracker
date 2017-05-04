@@ -58,6 +58,7 @@ class DealDetails extends Component {
           handleHqChange={this.handleHqChange}
           handleSubmit={this.handleSubmit}
           addContact={this.props.addContact}
+          editContact={this.props.editContact}
           deleteContact={this.props.deleteContact}
         />
       </div>
@@ -71,6 +72,7 @@ DealDetails.propTypes = {
   editDeal: PropTypes.func.isRequired,
   changeTab: PropTypes.func.isRequired,
   addContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };
 
