@@ -27,12 +27,16 @@ class Contact extends Component {
     this.props.deleteContact(contactObject);
   }
 
+  /**
+   * Saves user input in any contact field to local state
+   * @param {object} event input field event
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   /**
-   * Toggles boolean editor view state
+   * Dispatches the 'EDIT_CONTACT' action using the value in state
    */
   handleSave() {
     this.props.editContact({
