@@ -7,7 +7,7 @@ Editable, searchable, filterable Pipeline view:
 Deal Details view:
 ![Details](./readmeAssets/Details.png "Details")
 
-## Installation (tested on Mac OS 10.12.4) ##
+## Installation ##
 * GIT-clone repo or download and extract to directory of your choice
 * Project uses NPM package manager so once in root project directory, just `npm install` to resolve dependencies. _Note:_ be sure to include `node_module/*` directory in your `.gitignore` to ensure you're not unnecessarily uploading all dependencies to GIT. 
 * Install ES Lint, if not installed already. The eslintrc.json and aribnb configs depend on this linter.
