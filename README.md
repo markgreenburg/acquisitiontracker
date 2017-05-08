@@ -1,5 +1,11 @@
 # acquisitiontracker
-Track buy-side m&amp;a deals
+React & Redux tracker for buy-side m&amp;a deals
+
+Editable, searchable, filterable Pipeline view:
+![Pipeline](./readmeAssets/Pipeline.png "Pipeline")
+
+Deal Details view:
+![Details](./readmeAssets/Details.png "Details")
 
 ## Installation (tested on Mac OS 10.12.4) ##
 * GIT-clone repo or download and extract to directory of your choice
@@ -8,7 +14,6 @@ Track buy-side m&amp;a deals
 
 ## Testing / Local Startup ##
 * To run locally, run `npm start` from root project directory. If this does not open a new Chrome tab for you, navigate to `http://localhost:3000/`.
-* TO-DO: Webpack integration and start script migration.
 
 ## Background ##
 Project went through three main phases:
