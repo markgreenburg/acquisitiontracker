@@ -1,3 +1,4 @@
+// @flow
 /**
  * This tab component recognizes and renders the current active tab
  * It has full access to the Redux store

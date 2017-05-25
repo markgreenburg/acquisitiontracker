@@ -1,3 +1,4 @@
+// @flow
 /**
  * Normalize EBITDA cell input into integers
  * @param {string} value the value of the cell contents to be saved

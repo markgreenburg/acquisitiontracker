@@ -1,4 +1,5 @@
 /* eslint react/no-unused-prop-types: 0 */
+// @flow
 
 import React from 'react';
 import PropTypes from 'prop-types';

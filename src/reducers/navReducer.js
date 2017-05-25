@@ -1,3 +1,4 @@
+// @flow
 const navReducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_TAB':

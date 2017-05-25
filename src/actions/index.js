@@ -1,6 +1,7 @@
 /**
  * This module defines action types for Redux
  */
+// @flow
 
 export const addDeal = dealObject => ({
   type: 'ADD_DEAL',

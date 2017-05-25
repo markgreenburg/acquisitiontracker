@@ -1,3 +1,4 @@
+// @flow
 // We may be able to get away with just a single reducer if data structure is simple
 // Otherwise . . .
 // import { combineReducers } from 'redux';

@@ -1,3 +1,4 @@
+// @flow
 import { createStore } from 'redux';
 import masterReducer from './reducers/index';
 import deals from './deals';

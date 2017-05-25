@@ -1,3 +1,4 @@
+// @flow
 const contactReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_CONTACT': {
